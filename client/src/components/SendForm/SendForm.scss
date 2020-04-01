@@ -1,0 +1,23 @@
+.send-form {
+  display: flex;
+  border-top: 2px solid #D3D3D3;
+}
+
+.send-form__input {
+  border: none;
+  border-radius: 0;
+  padding: 5%;
+  width: 80%;
+  font-size: 1.2em;
+}
+
+.send-form__button {
+  color: #FFFFFF;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #2979FF;
+  padding: 20px;
+  display: inline-block;
+  border: none;
+  width: 20%;
+}
