@@ -2,14 +2,12 @@ const users = [];
 
 const addUser = ({id, name, room}) => {
   // Transform to lower case without spaces
-  name = name.trim().toLowerCase();
-  room = room.trim().toLowerCase();
+  //name = name.toLowerCase();
+  //room = room.toLowerCase();
 
   // Checking for existing user in the room
-  const existingUser = users.find(user => user.room === room && user.name === name);
-  if (existingUser) {
-    return {error: 'Username is taken'}
-  }
+  const existingUser = users.find(user => user.room === room && user.name.toLowerCase() === name.toLowerCase());
+  if (existingUser) return {error: 'Username is taken'};
 
   // Add new user
   const user = {id, name, room};

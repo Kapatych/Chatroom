@@ -1,8 +1,9 @@
 import React from 'react';
+import ReactEmoji from 'react-emoji';
 
 import './Message.scss';
 
-const Message = ({ message: {user, text}, name }) => {
+const Message = ({message: {user, text, time}, name}) => {
   let isCurrentUser = false;
 
   const trimmedName = name.trim().toLowerCase();
@@ -11,16 +12,27 @@ const Message = ({ message: {user, text}, name }) => {
 
   return (
     isCurrentUser
-    ? (
+      ? (
         <div className="messages__item messages__item--own">
-          <p className="messages__item-author">{trimmedName}</p>
+          <p className="messages__item-time">{time}</p>
+          <div className="messages__item-box">
+            <p className="messages__item-text">{ReactEmoji.emojify(text)}</p>
+          </div>
+        </div>
+      )
+      : (user === 'admin')
+      ? (
+        <div className="messages__item messages__item--admin">
           <p className="messages__item-text">{text}</p>
         </div>
       )
-    : (
+      : (
         <div className="messages__item">
-          <p className="messages__item-text">{text}</p>
-          <p className="messages__item-author">{user}</p>
+          <div className="messages__item-box">
+            <p className="messages__item-author">{user}</p>
+            <p className="messages__item-text">{ReactEmoji.emojify(text)}</p>
+          </div>
+          <p className="messages__item-time">{time}</p>
         </div>
       )
   )

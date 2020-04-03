@@ -2,38 +2,58 @@
   display: flex;
   justify-content: flex-start;
   padding: 0 5%;
-  margin-top: 3px;
+  margin-top: 20px;
 
   &--own {
     justify-content: flex-end;
 
-    .messages__item-text {
+    .messages__item-box {
       color: white;
-      background: #2979FF;
+      background: #0071BC;
     }
 
-    .messages__item-author {
+    .messages__item-time {
       padding: 0 10px 0 0;
+    }
+  }
+
+  &--admin {
+    justify-content: center;
+
+    .messages__item-text {
+      padding: 0;
+      color: #858585;
+      background: none;
     }
   }
 }
 
-.messages__item-author {
+.messages__item-time {
+  margin: 0;
   padding: 0 0 0 10px;
   display: flex;
-  align-items: center;
-  font-family: Helvetica;
-  color: #828282;
+  align-items: flex-end;
+  color: #858585;
+  font-size: 14px;
   letter-spacing: 0.3px;
 }
 
-.messages__item-text {
-  padding: 5px 20px;
-  max-width: 80%;
-  display: inline-block;
-  color: #353535;
+.messages__item-box {
+  padding: 10px 20px;
+  max-width: 60%;
   background: #F3F3F3;
-  border-radius: 20px;
+  border-radius: 10px;
+}
+
+.messages__item-author {
+  margin: 0 0 10px;
+  font-weight: bold;
+}
+
+.messages__item-text {
+  margin: 0;
+  line-height: 20px;
+  white-space: pre-line;
 }
 
 /*.messageText {

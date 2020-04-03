@@ -7,12 +7,14 @@ import './Chat.scss';
 import InfoBar from "../InfoBar/InfoBar";
 import Messages from "../Messages/Messages";
 import SendForm from "../SendForm/SendForm";
+import People from "../People/People";
 
 let socket;
 
-const Chat = ({location}) => {
+const Chat = ({location, history}) => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
+  const [users, setUsers] = useState([]);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
 
@@ -26,7 +28,12 @@ const Chat = ({location}) => {
     setName(name);
     setRoom(room);
 
-    socket.emit('join', {name, room}, () => {});
+    socket.emit('join', {name, room}, (error) => {
+      if (error) {
+        alert(error);
+        history.push('/')
+      }
+    });
 
     // Unmounting
     return () => {
@@ -35,29 +42,41 @@ const Chat = ({location}) => {
     }
   }, [ENDPOINT, location.search]);
 
-  useEffect( () => {
+  useEffect(() => {
     socket.on('message', (message) => {
-      setMessages([...messages, message])
-    })
-  }, [messages]);
+      setMessages(messages => [...messages, message]);
+    });
+
+    socket.on('roomData', ({users}) => {
+      setUsers(users);
+    });
+
+  }, []);
 
   const sendMessage = (event) => {
     event.preventDefault();
 
-    if (message) {
-      socket.emit('sendMessage', message, () => setMessage(''));
+    const clearedMessage = message.replace(/(\s)+/g,'$1').trim();
+
+    // Send a cleared message if it contains not only spaces and line breaks
+    if (clearedMessage) {
+      socket.emit('sendMessage', clearedMessage, () => setMessage(''));
     }
   };
-
-  console.log(message, messages);
 
   return (
     <div className='chat'>
       <div className='chat__container'>
-        <InfoBar room={room} />
-        <Messages messages={messages} name={name}/>
-        <SendForm message={message} setMessage={setMessage} sendMessage={sendMessage} />
+        <div className='sidebar'>
+          <People users={users}/>
+        </div>
+        <div className='main'>
+          <InfoBar room={room}/>
+          <Messages messages={messages} name={name}/>
+          <SendForm message={message} setMessage={setMessage} sendMessage={sendMessage}/>
+        </div>
       </div>
+
     </div>
   )
 };

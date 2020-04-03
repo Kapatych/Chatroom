@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 
-import './Join.scss'
+import './Join.scss';
+
 
 const Join = () => {
   const [name, setName] = useState('');
@@ -21,7 +22,7 @@ const Join = () => {
                type='text'
                placeholder='Room'
                onChange={event => setRoom(event.target.value)}/>
-        <Link to={`/chat?name=${name}&room=${room}`}
+        <Link to={`/chat?name=${name.trim()}&room=${room.trim()}`}
               onClick={event => (!name || !room) ? event.preventDefault() : null}>
           <button className='button join__button' type='submit'>Sign In</button>
         </Link>
