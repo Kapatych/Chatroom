@@ -51,6 +51,10 @@ html, body {
   padding: 0;
 }
 
+.error {
+  color: red;
+}
+
 @media (min-width: 640px) {
   .main {
     flex-grow: 1;

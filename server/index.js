@@ -13,9 +13,15 @@ io.on('connection', (socket) => {
     socket.on('join', ({name, room}, callback) => {
         const {error, user} = addUser({id: socket.id, name, room});
 
-        if (error) return callback(error);
+        if (error){
+            return callback(error);
+        }  else {
+            callback('')
+        }
 
         socket.join(user.room);
+
+        console.log(`user ${user.name} join to ${user.room}`);
 
         socket.emit('message', {user: 'admin', text: `${user.name}, welcome to the room ${user.room}!`});
 
@@ -24,7 +30,7 @@ io.on('connection', (socket) => {
         // Change room users list
         io.to(user.room).emit('roomData', {room: user.room, users: getUsersInRoom(user.room)});
 
-        callback();
+        //callback();
     });
 
     socket.on('sendMessage', (message, callback) => {
@@ -40,6 +46,7 @@ io.on('connection', (socket) => {
         const user = removeUser(socket.id);
 
         if (user) {
+            console.log(`user ${user.name} has left from ${user.room}`);
             //io.to(user.room).emit('message', {user: 'admin', text: `${user.name} has left.`});
             socket.broadcast.to(user.room).emit('message', {user: 'admin', text: `${user.name} has left.`});
 

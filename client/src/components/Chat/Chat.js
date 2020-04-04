@@ -1,6 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import queryString from 'query-string';
-import io from 'socket.io-client';
 
 import './Chat.scss';
 
@@ -8,41 +6,16 @@ import InfoBar from "../InfoBar/InfoBar";
 import Messages from "../Messages/Messages";
 import SendForm from "../SendForm/SendForm";
 import People from "../People/People";
+import UserBar from "../UserBar/UserBar";
 
-let socket;
+const Chat = ({room, name, socket}) => {
 
-const Chat = ({location, history}) => {
-  const [name, setName] = useState('');
-  const [room, setRoom] = useState('');
   const [users, setUsers] = useState([]);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
 
-  const ENDPOINT = 'localhost:5000';
-
   useEffect(() => {
-    const {name, room} = queryString.parse(location.search);
 
-    socket = io(ENDPOINT);
-
-    setName(name);
-    setRoom(room);
-
-    socket.emit('join', {name, room}, (error) => {
-      if (error) {
-        alert(error);
-        history.push('/')
-      }
-    });
-
-    // Unmounting
-    return () => {
-      socket.emit('disconnect');
-      socket.off();
-    }
-  }, [ENDPOINT, location.search]);
-
-  useEffect(() => {
     socket.on('message', (message) => {
       setMessages(messages => [...messages, message]);
     });
@@ -51,7 +24,12 @@ const Chat = ({location, history}) => {
       setUsers(users);
     });
 
-  }, []);
+    return () => {
+      socket.off('message');
+      socket.off('roomData');
+    }
+
+  }, [socket]);
 
   const sendMessage = (event) => {
     event.preventDefault();
@@ -68,6 +46,7 @@ const Chat = ({location, history}) => {
     <div className='chat'>
       <div className='chat__container'>
         <div className='sidebar'>
+          <UserBar user={name} />
           <People users={users}/>
         </div>
         <div className='main'>
