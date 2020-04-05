@@ -17,7 +17,7 @@ const Join = ({joinHandler, existRoom, error}) => {
   };
 
   const validateName = (name) => {
-    const pattern = /^[a-zA-ZА-Яа-яЁё0-9\s_\-]+$/;
+    const pattern = /^[a-zA-ZА-Яа-яЁё0-9\s_-]*$/;
 
     if (pattern.test(name)) {
       setName(name)
