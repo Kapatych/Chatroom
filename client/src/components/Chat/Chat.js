@@ -46,11 +46,11 @@ const Chat = ({room, name, socket}) => {
     <div className='chat'>
       <div className='chat__container'>
         <div className='sidebar'>
+          <People users={users.filter(user => user.name !== name)}/>
           <UserBar user={name} />
-          <People users={users}/>
         </div>
         <div className='main'>
-          <InfoBar room={room}/>
+          <InfoBar room={room} usersCount={users.length}/>
           <Messages messages={messages} name={name}/>
           <SendForm message={message} setMessage={setMessage} sendMessage={sendMessage}/>
         </div>

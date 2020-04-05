@@ -2,6 +2,7 @@ import React from 'react';
 import ReactEmoji from 'react-emoji';
 
 import './Message.scss';
+import Avatar from "../../Avatar/Avatar";
 
 const Message = ({message: {user, text, time}, name}) => {
   let isCurrentUser = false;
@@ -28,6 +29,7 @@ const Message = ({message: {user, text, time}, name}) => {
       )
       : (
         <div className="messages__item">
+          <Avatar letter={user[0]} />
           <div className="messages__item-box">
             <p className="messages__item-author">{user}</p>
             <p className="messages__item-text">{ReactEmoji.emojify(text)}</p>

@@ -16,6 +16,14 @@ const Join = ({joinHandler, existRoom, error}) => {
     }
   };
 
+  const validateName = (name) => {
+    const pattern = /^[a-zA-ZА-Яа-яЁё0-9\s_\-]+$/;
+
+    if (pattern.test(name)) {
+      setName(name)
+    }
+  };
+
   return (
     <div className='join'>
       <div className='join__container'>
@@ -31,7 +39,7 @@ const Join = ({joinHandler, existRoom, error}) => {
                  className='join__input'
                  type='text'
                  placeholder='Name'
-                 onChange={event => setName(event.target.value)}/>
+                 onChange={event => validateName(event.target.value)}/>
           {
             (!existRoom)
               ? (

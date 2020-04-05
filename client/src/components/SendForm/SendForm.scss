@@ -1,7 +1,6 @@
 .send-form {
-  grid-area: sendform;
+  position: relative;
   display: flex;
-  //border-top: 2px solid #D3D3D3;
   padding: 20px 30px;
   background-color: #f2f3f7;
 }
@@ -11,19 +10,38 @@
   overflow: auto;
   border: none;
   border-radius: 5px;
-  padding: 15px 30px;
+  padding: 15px 60px 15px 30px;
   width: 100%;
   font-size: 18px;
   font-family: inherit;
 }
 
 .send-form__button {
-  color: #FFFFFF;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: #0071bc;
-  padding: 20px;
-  display: inline-block;
+  position: absolute;
+  top: 50%;
+  right: 50px;
+  transform: translateY(-50%);
+  padding: 10px;
   border: none;
-  width: 20%;
+  background: none;
+  cursor: pointer;
+  outline: none;
+
+  &:before {
+    content: '';
+    display: block;
+    border-top: 10px solid #858585;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    transform: rotate(-90deg);
+  }
+
+  //color: #FFFFFF;
+  //text-transform: uppercase;
+  //text-decoration: none;
+  //
+  //padding: 20px;
+  //display: inline-block;
+  //
+  //width: 20%;
 }

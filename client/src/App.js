@@ -19,12 +19,8 @@ function App({location, history}) {
 
   useEffect(() => {
     const room = queryString.parse(location.search).room || '';
+    const name = tempName || localStorage.getItem('name');
     setRoom(room);
-
-    //const name = localStorage.getItem('name') || '';
-    //setName(name);
-
-    const name = localStorage.getItem('name') || tempName;
     setName(name);
   }, [location.search, tempName]);
 
@@ -45,7 +41,6 @@ function App({location, history}) {
 
   const joinHandler = (name, room) => {
     history.push(`/?room=${room.trim()}`);
-    //localStorage.setItem('name', name);
     setTempName(name);
   };
 

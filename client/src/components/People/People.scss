@@ -1,13 +1,13 @@
 .people {
 
 }
+.people__item {
+  display: flex;
+  align-items: center;
+  padding: 0 0 15px 0;
 
-
-/*
-@media (min-width: 480px) {
-  .people {
-    display: block;
-    grid-area: people;
-
+  .avatar {
+    background: transparent;
+    border: 1px solid #fff;
   }
-}*/
+}

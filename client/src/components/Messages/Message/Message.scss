@@ -2,7 +2,7 @@
   display: flex;
   justify-content: flex-start;
   padding: 0 5%;
-  margin-top: 20px;
+  margin-bottom: 20px;
 
   &--own {
     justify-content: flex-end;
@@ -10,6 +10,16 @@
     .messages__item-box {
       color: white;
       background: #0071BC;
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: auto;
+        border-top: 15px solid #0071BC;
+        transform: translateX(50%);
+      }
     }
 
     .messages__item-time {
@@ -39,10 +49,23 @@
 }
 
 .messages__item-box {
+  position: relative;
+  margin-top: 10px;
   padding: 10px 20px;
   max-width: 60%;
   background: #F3F3F3;
   border-radius: 10px;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-top: 15px solid #F3F3F3;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    transform: translateX(-50%);
+  }
 }
 
 .messages__item-author {
