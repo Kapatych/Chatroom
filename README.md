@@ -1,5 +1,4 @@
 # Simple 'Сhat room' app
-____
 
 ![Screenshot](https://user-images.githubusercontent.com/58704804/78592799-4e05b300-784e-11ea-98a7-40f98a3fc032.png)
 
