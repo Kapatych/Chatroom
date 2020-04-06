@@ -1,12 +1,16 @@
 .info-bar {
   flex-shrink: 0;
   padding: 0 15px;
+  height: 70px;
+  width: 100%;
   display: flex;
   align-items: center;
   background: #0071bc;
   color: #FFFFFF;
-  height: 60px;
-  width: 100%;
+
+  .close-button {
+    margin-left: 40px;
+  }
 }
 
 .info-bar__menu {
@@ -14,6 +18,7 @@
   margin-right: 20px;
   width: 25px;
   height: 20px;
+  cursor: pointer;
 
   &:before, &:after, span {
     content: '';
@@ -30,6 +35,10 @@
 
   &:after {
     bottom: 0;
+  }
+
+  &:hover, &:focus {
+    opacity: 0.5;
   }
 
   span {
@@ -50,40 +59,21 @@
 }
 
 .info-bar__people {
-  margin: 0;
+  margin: 5px 0 0 0;
   color: #FFFFFF;
   font-size: 14px;
 }
 
-.info-bar__close {
-  position: relative;
-  margin-left: 40px;
-  width: 25px;
-  height: 25px;
-
-  &:before, &:after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 27px;
-    height: 2px;
-    background-color: #FFFFFF;
-  }
-
-  &:before {
-    transform: rotate(-45deg) translate(-8px, -10px);
-  }
-
-  &:after {
-    transform: rotate(45deg) translate(-10px, 8px);
-  }
-}
-
 @media (min-width: 640px) {
   .info-bar {
-    background: #f2f3f7;
+    background: #FAFBFC;
     color: #353535;
+
+    .close-button {
+      &:before, &:after {
+        background-color: #A6ACB7;
+      }
+    }
   }
 
   .info-bar__menu {
@@ -93,12 +83,6 @@
   .info-bar__people {
     color: #858585;
   }
-
-  .info-bar__close {
-    &:before, &:after {
-      background-color: #0071bc;
-    }
-  }
 }
 
 @media (min-width: 992px) {
@@ -107,6 +91,3 @@
   }
 }
 
-@media (min-width: 1200px) {
-
-}

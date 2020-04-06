@@ -1,9 +1,9 @@
 import React, {useEffect, useRef} from 'react';
-
-import Message from "./Message/Message";
+import PropTypes from 'prop-types';
 
 import './Messages.scss';
 
+import Message from "./Message/Message";
 
 const Messages = ({ messages, name }) => {
   const messagesEnd = useRef(null);
@@ -27,6 +27,11 @@ const Messages = ({ messages, name }) => {
       <div ref={messagesEnd} />
     </div>
   )
+};
+
+Messages.propTypes = {
+  name: PropTypes.string,
+  messages: PropTypes.array
 };
 
 export default Messages;

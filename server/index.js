@@ -1,9 +1,7 @@
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-
 const PORT = process.env.PORT || 5000;
-
 const router = require('./router');
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
@@ -19,24 +17,25 @@ io.on('connection', (socket) => {
             callback('')
         }
 
+        // Join to room
         socket.join(user.room);
 
-        console.log(`user ${user.name} join to ${user.room}`);
-
+        // Greeting message
         socket.emit('message', {user: 'admin', text: `${user.name}, welcome to the room ${user.room}!`});
 
+        // Notify the room about a new user
         socket.broadcast.to(user.room).emit('message', {user: 'admin', text: `${user.name} has joined!`});
 
         // Change room users list
         io.to(user.room).emit('roomData', {room: user.room, users: getUsersInRoom(user.room)});
 
-        //callback();
     });
 
     socket.on('sendMessage', (message, callback) => {
         const user = getUser(socket.id);
         const time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 
+        // Notify the room about a new message
         io.to(user.room).emit('message', {user: user.name, text: message, time});
 
         callback();
@@ -46,8 +45,7 @@ io.on('connection', (socket) => {
         const user = removeUser(socket.id);
 
         if (user) {
-            console.log(`user ${user.name} has left from ${user.room}`);
-            //io.to(user.room).emit('message', {user: 'admin', text: `${user.name} has left.`});
+            // Notify the room the user has left
             socket.broadcast.to(user.room).emit('message', {user: 'admin', text: `${user.name} has left.`});
 
             // Change room users list
@@ -55,7 +53,6 @@ io.on('connection', (socket) => {
         }
     })
 });
-
 
 app.use(router);
 server.listen(PORT, () => console.log(`Server has started on port ${PORT}`));

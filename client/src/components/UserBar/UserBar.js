@@ -1,12 +1,18 @@
 import React from 'react';
-import './UserBar.scss'
-import Avatar from "../Avatar/Avatar";
+import PropTypes from 'prop-types';
+import Avatar from 'react-avatar';
 
-const UserBar = ({user}) => (
+import './UserBar.scss'
+
+const UserBar = ({ user }) => (
   <div className="user-bar">
-    <Avatar letter={user[0]} />
-    {user}
+    <Avatar name={ user } size={ 50 } round="50px" maxInitials={ 2 } />
+    { user }
   </div>
 );
+
+UserBar.propTypes = {
+  user: PropTypes.string
+};
 
 export default UserBar;

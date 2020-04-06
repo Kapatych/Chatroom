@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import io from 'socket.io-client';
 import queryString from 'query-string';
+import PropTypes from 'prop-types';
 
 import './App.scss';
 
@@ -10,7 +11,7 @@ import Chat from "./components/Chat/Chat";
 const ENDPOINT = 'localhost:5000';
 const socket = io.connect(ENDPOINT);
 
-function App({location, history}) {
+function App({ location, history }) {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const [error, setError] = useState('');
@@ -18,8 +19,12 @@ function App({location, history}) {
   const [tempName, setTempName] = useState('');
 
   useEffect(() => {
+    // Check if url contains a room
     const room = queryString.parse(location.search).room || '';
+
+    // Check if localStorage contains a name
     const name = tempName || localStorage.getItem('name');
+
     setRoom(room);
     setName(name);
   }, [location.search, tempName]);
@@ -29,9 +34,9 @@ function App({location, history}) {
       socket.emit('join', { name, room }, (error) => {
         if (error) {
           setError(error);
-          //localStorage.removeItem('name');
           setTempName('');
         } else {
+          // If success save name in local storage
           localStorage.setItem('name', name);
           setIsLogin(true)
         }
@@ -46,13 +51,14 @@ function App({location, history}) {
 
   return (
     (isLogin)
-      ? (
-        <Chat name={name} room={room} socket={socket} />
-      )
-      : (
-        <Join existRoom={room} joinHandler={joinHandler} error={error}/>
-      )
+      ? <Chat name={ name } room={ room } socket={ socket } />
+      : <Join existRoom={ room } joinHandler={ joinHandler } error={ error }/>
   )
 }
+
+App.propTypes = {
+  location: PropTypes.object,
+  history: PropTypes.object
+};
 
 export default App;
